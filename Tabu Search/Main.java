@@ -61,7 +61,7 @@ public class Main {
 	    int[][] coords = new int[107][2];
 	    String line;
 	    int i = 0;
-	    while ((line = br.readLine()) != null) {
+	    while ((line = br.readLine()) != null && !line.equals("EOF")) {
 	        String[] values = line.trim().split("\\s+");
 	        int node = Integer.parseInt(values[0]);
 	        int x = Integer.parseInt(values[1]);
