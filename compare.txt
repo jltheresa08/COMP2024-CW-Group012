@@ -1,160 +1,92 @@
-iterations 8000
-size 50
-Total cost of travel:223952.595670789
-Total cost of travel:362364.47508036223
-Total cost of travel:282002.5736947393
-Total cost of travel:300361.7827360481
-Total cost of travel:306367.46791255026
-Total cost of travel:296118.72539668874
-Total cost of travel:397867.9866243735
-Total cost of travel:295441.65855353
-Total cost of travel:447380.63880720554
-Total cost of travel:326570.9896328601
-Total cost of travel:367443.18682100263
-Total cost of travel:296683.5533845721
-Total cost of travel:317407.463386485
-Total cost of travel:306007.46449610987
-Total cost of travel:348974.64773214783
-Total cost of travel:339164.4753426704
-Total cost of travel:406832.51541781274
-Total cost of travel:305832.92182013934
-Total cost of travel:274796.4021176566
-Total cost of travel:273905.0968383645
-Total cost of travel:283958.00904800516
-Total cost of travel:364366.3252053828
-Total cost of travel:315556.0385987835
-Total cost of travel:311962.59662347246
-Total cost of travel:304318.90727687796
-Total cost of travel:312020.2857843678
-Total cost of travel:322309.6484633168
-Total cost of travel:289014.2531917856
-Total cost of travel:328190.80815469846
-Total cost of travel:303366.5778203787
-iterations 7500
-size 50
-Total cost of travel:266696.25476632983
-Total cost of travel:380043.2950868901
-Total cost of travel:358448.0244114493
-Total cost of travel:318766.7638410553
-Total cost of travel:351590.73934284545
-Total cost of travel:411061.15613701486
-Total cost of travel:362301.48590982624
-Total cost of travel:304048.70662195707
-Total cost of travel:353220.55645317596
-Total cost of travel:301120.3568733887
-Total cost of travel:296148.32998797635
-Total cost of travel:257256.56158162904
-Total cost of travel:295865.34763435845
-Total cost of travel:361059.80093526625
-Total cost of travel:345852.1903961765
-Total cost of travel:299917.18114196096
-Total cost of travel:365186.45412092307
-Total cost of travel:342500.18753472116
-Total cost of travel:341783.3994691074
-Total cost of travel:312577.6360700098
-Total cost of travel:327070.1176238342
-Total cost of travel:310754.1946693248
-Total cost of travel:310018.13826649525
-Total cost of travel:246734.58926305253
-Total cost of travel:322189.9921281381
-Total cost of travel:310654.9223643456
-Total cost of travel:312012.85510117776
-Total cost of travel:340523.6792898353
-Total cost of travel:210469.95836307245
-Total cost of travel:381064.9513746467
-iterations 8000
-size 100
-Total cost of travel:312098.32543653785
-Total cost of travel:331367.25694578845
-Total cost of travel:316237.1380070367
-Total cost of travel:331815.1633087687
-Total cost of travel:296967.18082294444
-Total cost of travel:309370.8188115274
-Total cost of travel:343010.54212229437
-Total cost of travel:359213.36878355016
-Total cost of travel:319055.6402913215
-Total cost of travel:335558.8459712294
-Total cost of travel:323280.427859567
-Total cost of travel:326817.1128741157
-Total cost of travel:337697.94922744675
-Total cost of travel:301957.7449771648
-Total cost of travel:267626.96300358267
-Total cost of travel:283342.12095860904
-Total cost of travel:319649.13143326034
-Total cost of travel:276740.4048655573
-Total cost of travel:305873.26614646526
-Total cost of travel:313848.3276979481
-Total cost of travel:393726.43820546137
-Total cost of travel:328522.9293070787
-Total cost of travel:249812.88664676025
-Total cost of travel:305429.6657190555
-Total cost of travel:341341.1663260458
-Total cost of travel:299322.4363783621
-Total cost of travel:310073.3315811207
-Total cost of travel:365346.6085974467
-Total cost of travel:333158.1795697507
-Total cost of travel:321888.542411626
 iterations 7500
 size 100
-Total cost of travel:283796.29389919725
-Total cost of travel:270183.91021253116
-Total cost of travel:315001.8044205317
-Total cost of travel:308839.7077134836
-Total cost of travel:327242.92114493356
-Total cost of travel:297911.3705811244
-Total cost of travel:316746.23027288046
-Total cost of travel:315385.2775551718
-Total cost of travel:333421.93766091997
-Total cost of travel:294951.7449465238
-Total cost of travel:297859.3127463508
-Total cost of travel:314073.99041365
-Total cost of travel:358455.7758138144
-Total cost of travel:286522.21038829413
-Total cost of travel:331740.78897424374
-Total cost of travel:307551.86844824284
-Total cost of travel:271471.64140773244
-Total cost of travel:364232.1324885707
-Total cost of travel:307090.70003047254
-Total cost of travel:297936.93877707847
-Total cost of travel:297040.4971330797
-Total cost of travel:297543.46164890856
-Total cost of travel:320821.5801125489
-Total cost of travel:386370.61222955125
-Total cost of travel:295776.80047793686
-Total cost of travel:309878.11886374623
-Total cost of travel:376954.0719543282
-Total cost of travel:316073.77141934057
-Total cost of travel:301860.57812238456
-Total cost of travel:299576.49618845
-iterations 7000
-size 100
-Total cost of travel:301076.11374855856
-Total cost of travel:254158.1059468248
-Total cost of travel:323912.78795414296
-Total cost of travel:305280.9009577956
-Total cost of travel:259269.09026426086
-Total cost of travel:324894.6753355392
-Total cost of travel:359489.42261397495
-Total cost of travel:329264.5212789344
-Total cost of travel:342525.72676606127
-Total cost of travel:316195.9093249501
-Total cost of travel:330262.2416678158
-Total cost of travel:369307.00621057337
-Total cost of travel:254100.6910515011
-Total cost of travel:301772.59757665294
-Total cost of travel:322285.9046869681
-Total cost of travel:374118.17146224587
-Total cost of travel:284342.91882053594
-Total cost of travel:399374.26979924965
-Total cost of travel:364427.1194657949
-Total cost of travel:277721.8975266416
-Total cost of travel:313946.04389610543
-Total cost of travel:356681.49710274854
-Total cost of travel:263801.01575748896
-Total cost of travel:301817.6410178194
-Total cost of travel:350653.768804447
-Total cost of travel:266543.72845179436
-Total cost of travel:321808.00079404627
-Total cost of travel:295415.15149118874
-Total cost of travel:269655.9846169685
-Total cost of travel:349302.2015069558
+Total cost of travel:362464.65821044636
+Total time of travel:28921
+
+Total cost of travel:367846.4093333501
+Total time of travel:28447
+
+Total cost of travel:295823.56427145324
+Total time of travel:28256
+
+Total cost of travel:328514.55279617925
+Total time of travel:28358
+
+Total cost of travel:342317.2321267089
+Total time of travel:28222
+
+Total cost of travel:316624.93912254716
+Total time of travel:28281
+
+Total cost of travel:317255.4069395308
+Total time of travel:28473
+
+Total cost of travel:286804.8524053015
+Total time of travel:28254
+
+Total cost of travel:353043.311618464
+Total time of travel:28412
+
+Total cost of travel:381556.48184313317
+Total time of travel:28428
+
+Total cost of travel:393926.3077154902
+Total time of travel:28369
+
+Total cost of travel:284639.8709530051
+Total time of travel:28402
+
+Total cost of travel:333918.1063069193
+Total time of travel:28511
+
+Total cost of travel:307409.81640636537
+Total time of travel:28222
+
+Total cost of travel:329484.27367746667
+Total time of travel:28378
+
+Total cost of travel:335127.974536858
+Total time of travel:28304
+
+Total cost of travel:304306.1249114598
+Total time of travel:28184
+
+Total cost of travel:287504.8426168924
+Total time of travel:28401
+
+Total cost of travel:311892.8652139281
+Total time of travel:28420
+
+Total cost of travel:303597.2611336983
+Total time of travel:28450
+
+Total cost of travel:309626.2458323935
+Total time of travel:28539
+
+Total cost of travel:356929.12886598223
+Total time of travel:28538
+
+Total cost of travel:274119.6539219522
+Total time of travel:28304
+
+Total cost of travel:361246.9567622471
+Total time of travel:28494
+
+Total cost of travel:333261.7058215452
+Total time of travel:28368
+
+Total cost of travel:345484.720450343
+Total time of travel:28357
+
+Total cost of travel:284191.75516408373
+Total time of travel:28196
+
+Total cost of travel:307033.24375431094
+Total time of travel:28306
+
+Total cost of travel:270445.16516949213
+Total time of travel:28396
+
+Total cost of travel:353368.1247732843
+Total time of travel:28414
+
