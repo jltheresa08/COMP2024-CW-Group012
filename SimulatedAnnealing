@@ -1,6 +1,7 @@
-package sa;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,53 +10,120 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SimulatedAnnealingTSP {
-    private static final double INITIAL_TEMPERATURE = 1000;
-    private static final double FINAL_TEMPERATURE = 1;
-    private static final double COOLING_FACTOR = 0.99;
-    private static final int MAX_ITERATIONS = 1000;
+    private static final double INITIAL_TEMPERATURE = 10000;
+    private static final double FINAL_TEMPERATURE = 0;
+    private static final double COOLING_FACTOR = 0.9;
+    private static final int MAX_ITERATIONS = 60000;
 
     private static List<City> cities;
     private static int numCities;
     private static double[][] distances;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+    	BufferedWriter writer = new BufferedWriter(new FileWriter("compare.txt",true));
+        writer.write("iterations "+MAX_ITERATIONS ); //HERE TO CHANGE UR HEADING
+        for(int b=0;b<30;b++)
+        {
+    	long startTime = System.currentTimeMillis();
         readInputFile("TSP_107.txt");
-        initializeDistances();
+//        initializeDistances();
 
         Tour currentTour = new Tour(cities);
+       
+        
+        int it = 50000;
+        for(int a=0;a<it;a++) {
+        	int city1 = (int) (Math.random() * numCities);
+            int city2 = (int) (Math.random() * numCities);
+            currentTour.swapCities(city1, city2);
+       }
+        
         Tour bestTour = new Tour(currentTour);
-
+        System.out.println(bestTour);
+        
+        
+        
         double temp = INITIAL_TEMPERATURE;
 
         for (int i = 0; i < MAX_ITERATIONS; i++) {
             Tour newTour = new Tour(currentTour);
-
-            int city1 = (int) (Math.random() * numCities);
-            int city2 = (int) (Math.random() * numCities);
-
-            newTour.swapCities(city1, city2);
-
-            double currentEnergy = currentTour.getTourDistance(distances);
-            double newEnergy = newTour.getTourDistance(distances);
-
-            if (acceptNewSolution(currentEnergy, newEnergy, temp)) {
-                currentTour = new Tour(newTour);
+//            double currentEnergy = currentTour.getTourDistance(distances);
+//            double newEnergy = newTour.getTourDistance(distances);
+            
+            for(int a=0;a<it;a++) {
+            	int  city1 = (int) (Math.random() * numCities);
+                int  city2 = (int) (Math.random() * numCities);
+                newTour.swapCities(city1, city2);
+            }
+            System.out.println("new" + newTour);
+            
+            double currentEnergy = currentTour.getTourDistance();
+            double newEnergy = newTour.getTourDistance();
+            double bestenergy = bestTour.getTourDistance();
+            System.out.println("hhhhhhhhhhhh" + bestenergy);
+            
+            
+            if (temp > FINAL_TEMPERATURE) {
+	            if (acceptNewSolution(currentEnergy, newEnergy, temp)) {
+	                currentTour = new Tour(newTour);
+	            }
+	            bestTour = new Tour(currentTour);
+	            
+	            temp *= COOLING_FACTOR;
+            }
+            else
+            {
+            	currentTour = new Tour(newTour);
+//            	System.out.println(currentTour.getTourDistance());
+//            	System.out.println(bestTour.getTourDistance());
+            	if (currentTour.getTourDistance() < bestTour.getTourDistance()) {
+                    bestTour = new Tour(currentTour);
+                    System.out.println("hi");
+                }
             }
 
-            if (currentTour.getTourDistance(distances) < bestTour.getTourDistance(distances)) {
-                bestTour = new Tour(currentTour);
-            }
-
-            temp *= COOLING_FACTOR;
-
-            if (temp < FINAL_TEMPERATURE) {
-                break;
-            }
+       
+            
+            
+//            currentTour = new Tour(newTour);
+//            
+//            if (temp <= FINAL_TEMPERATURE) {
+//            	if (currentTour.getTourDistance(distances) < bestTour.getTourDistance(distances)) {
+//                    bestTour = new Tour(currentTour);
+//                }
+//                
+//            }
+//            else
+//            {
+//            	if (currentTour.getTourDistance(distances) < bestTour.getTourDistance(distances)) {
+//            		bestTour = new Tour(currentTour);
+//            	}
+//            	else if (acceptNewSolution(currentEnergy, newEnergy, temp)) {
+//                	bestTour = new Tour(currentTour);
+//                }
+//            	
+//            	temp *= COOLING_FACTOR;
+//            }
+            	
+            
+//            
+            System.out.println(temp);
+            System.out.println(i);
         }
+        
+//    // Get end time
+    long endTime = System.currentTimeMillis();
+    
+    //Calculate the running time
+    long runningTime = endTime - startTime;
 
-        System.out.println("Best tour cost: " + bestTour.getTourDistance(distances));
+    	System.out.println("Running time: " + runningTime + " milliseconds");
+        System.out.println("Best tour cost: " + bestTour.getTourDistance());
         System.out.println("Best tour order: " + bestTour.toString());
         writeOutputFile("TSP_107.txt", "output.txt", bestTour);
+        writer.write("Total cost of travel:" +bestTour.getTourDistance());
+        }
+        writer.close();
     }
     
     private static void writeOutputFile(String inputFile, String outputFile, Tour tour) {
@@ -128,26 +196,26 @@ public class SimulatedAnnealingTSP {
         numCities = cities.size();
     }
 
-    /**
-     * Initialize a 2D array of distances between cities
-     * The (i, j)-th element represents the distance between the i-th and j-th cities
-     * Uses the distanceTo() method of the City class to calculate the distances
-     */
-    private static void initializeDistances() {
-    	/**
-    	 * A 2D array of distances between cities
-    	 * The (i, j)-th element represents the distance between the i-th and j-th cities
-    	 */
-        distances = new double[numCities][numCities];
-        for (int i = 0; i < numCities; i++) {
-            City city1 = cities.get(i);
-            for (int j = 0; j < numCities; j++) {
-                City city2 = cities.get(j);
-                double distance = city1.distanceTo(city2);
-                distances[i][j] = distance;
-            }
-        }
-    }
+//    /**
+//     * Initialize a 2D array of distances between cities
+//     * The (i, j)-th element represents the distance between the i-th and j-th cities
+//     * Uses the distanceTo() method of the City class to calculate the distances
+//     */
+//    private static void initializeDistances() {
+//    	/**
+//    	 * A 2D array of distances between cities
+//    	 * The (i, j)-th element represents the distance between the i-th and j-th cities
+//    	 */
+//        distances = new double[numCities][numCities];
+//        for (int i = 0; i < numCities; i++) {
+//            City city1 = cities.get(i);
+//            for (int j = 0; j < numCities; j++) {
+//                City city2 = cities.get(j);
+//                double distance = city1.distanceTo(city2);
+//                distances[i][j] = distance;
+//            }
+//        }
+//    }
 
     /**
      * Determines whether or not to accept a new solution in a simulated annealing algorithm
@@ -262,18 +330,19 @@ public class SimulatedAnnealingTSP {
          * @param distances a 2D array representing the distances between cities
          * @return total distance of tour
          */
-        public double getTourDistance(double[][] distances) {
+        public double getTourDistance() {
             double distance = 0;
             for (int i = 0; i < numCities - 1; i++) {
                 City city1 = cities.get(i);
                 City city2 = cities.get(i + 1);
-                distance += distances[city1.getId() - 1][city2.getId() - 1];
+                distance += city1.distanceTo(city2);
             }
             City lastCity = cities.get(numCities - 1);
             City firstCity = cities.get(0);
-            distance += distances[lastCity.getId() - 1][firstCity.getId() - 1];
+            distance += lastCity.distanceTo(firstCity);
             return distance;
         }
+
 
         /**
          * Swap the positions of two cities in the tour
@@ -289,3 +358,4 @@ public class SimulatedAnnealingTSP {
         }
     }
 }
+
