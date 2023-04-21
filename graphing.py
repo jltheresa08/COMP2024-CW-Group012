@@ -12,6 +12,9 @@ def plot_cities(filename):
     # Title of graph
     title = cities[-1][0]
 
+    # # Turn off both the x and y axis
+    # plt.axis('off')
+
     # Create a plot of the cities
     plt.plot(x_coords, y_coords, 'o', color='red')
 
