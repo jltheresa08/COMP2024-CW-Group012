@@ -1,0 +1,177 @@
+package sa;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SimulatedAnnealingTSP {
+
+    private static final double INITIAL_TEMPERATURE = 1000;
+    private static final double FINAL_TEMPERATURE = 1;
+    private static final double COOLING_FACTOR = 0.99;
+    private static final int MAX_ITERATIONS = 1000;
+
+    private static List<City> cities;
+    private static int numCities;
+    private static double[][] distances;
+
+    public static void main(String[] args) {
+        readInputFile("TSP_107.txt");
+        initializeDistances();
+
+        Tour currentTour = new Tour(cities);
+        Tour bestTour = new Tour(currentTour);
+
+        double temp = INITIAL_TEMPERATURE;
+
+        for (int i = 0; i < MAX_ITERATIONS; i++) {
+            Tour newTour = new Tour(currentTour);
+
+            int city1 = (int) (Math.random() * numCities);
+            int city2 = (int) (Math.random() * numCities);
+
+            newTour.swapCities(city1, city2);
+
+            double currentEnergy = currentTour.getTourDistance(distances);
+            double newEnergy = newTour.getTourDistance(distances);
+
+            if (acceptNewSolution(currentEnergy, newEnergy, temp)) {
+                currentTour = new Tour(newTour);
+            }
+
+            if (currentTour.getTourDistance(distances) < bestTour.getTourDistance(distances)) {
+                bestTour = new Tour(currentTour);
+            }
+
+            temp *= COOLING_FACTOR;
+
+            if (temp < FINAL_TEMPERATURE) {
+                break;
+            }
+        }
+
+        System.out.println("Best tour cost: " + bestTour.getTourDistance(distances));
+        System.out.println("Best tour order: " + bestTour.toString());
+    }
+
+    private static void readInputFile(String filename) {
+        cities = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new File(filename))) {
+            while (scanner.hasNextLine()) {
+            	
+                String line = scanner.nextLine();
+                String[] tokens = line.split(" ");
+                
+                if (line.equals("EOF")) {
+                    break;
+                }
+                
+                int id = Integer.parseInt(tokens[0]);
+                int x = Integer.parseInt(tokens[1]);
+                int y = Integer.parseInt(tokens[2]);
+                City city = new City(id, x, y);
+                cities.add(city);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        numCities = cities.size();
+    }
+
+    private static void initializeDistances() {
+        distances = new double[numCities][numCities];
+        for (int i = 0; i < numCities; i++) {
+            City city1 = cities.get(i);
+            for (int j = 0; j < numCities; j++) {
+                City city2 = cities.get(j);
+                double distance = city1.distanceTo(city2);
+                distances[i][j] = distance;
+            }
+        }
+    }
+
+    private static boolean acceptNewSolution(double currentEnergy, double newEnergy, double temperature) {
+        if (newEnergy < currentEnergy) {
+            return true;
+        }
+        double acceptanceProbability = Math.exp((currentEnergy - newEnergy) / temperature);
+        return Math.random() < acceptanceProbability;
+    }
+
+    private static class City {
+        private int id;
+        private int x;
+        private int y;
+
+        public City(int id, int x, int y) {
+            this.id = id;
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public double distanceTo(City other) {
+            int dx = x - other.getX();
+            int dy = y - other.getY();
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+    }
+
+    private static class Tour {
+        private List<City> cities;
+
+        public Tour(List<City> cities) {
+            this.cities = new ArrayList<>(cities);
+        }
+        public Tour(Tour tour) {
+        	this.cities = new ArrayList<>(tour.cities);
+        }
+
+        public String getCityOrder() {
+            return cities.toString();
+        }
+        
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (City city : cities) {
+                sb.append(city.getId()).append(", ");
+            }
+            sb.delete(sb.length() - 2, sb.length()); // remove trailing comma and space
+            sb.append("]");
+            return sb.toString();
+        }
+
+
+        public double getTourDistance(double[][] distances) {
+            double distance = 0;
+            for (int i = 0; i < numCities - 1; i++) {
+                City city1 = cities.get(i);
+                City city2 = cities.get(i + 1);
+                distance += distances[city1.getId() - 1][city2.getId() - 1];
+            }
+            City lastCity = cities.get(numCities - 1);
+            City firstCity = cities.get(0);
+            distance += distances[lastCity.getId() - 1][firstCity.getId() - 1];
+            return distance;
+        }
+
+        public void swapCities(int i, int j) {
+            City temp = cities.get(i);
+            cities.set(i, cities.get(j));
+            cities.set(j, temp);
+        }
+    }
+}    		
