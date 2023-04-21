@@ -1,37 +1,63 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class TabuSearch {
-    // Class to represent a city node
-    static class CityNode {
-        int id;
+	
+    /**
+     * Holds city node and coordinates.
+     */
+    static class Cities {
+        int node;
         double x, y;
         
-        public CityNode(int id, double x, double y) {
-            this.id = id;
+        /**
+         * Constructs a cities object with the given node and coordinates.
+         * @param node The node of the city.
+         * @param x The x-coordinate of the city.
+         * @param y The y-coordinate of the city.
+         */
+        public Cities(int node, double x, double y) {
+            this.node = node;
             this.x = x;
             this.y = y;
         }
     }
     
-    // Class to represent a tour
+    /**
+     * The tour path and cost.
+     */
     static class Tour {
         List<Integer> path;
         double cost;
         
+        /**
+         * Constructs a Tour object with the given path and cost.
+         * @param path The path of the tour as a list of city nodes.
+         * @param cost The cost of the tour.
+         */
         public Tour(List<Integer> path, double cost) {
             this.path = path;
             this.cost = cost;
         }
     }
     
-    // Tabu search algorithm
-    static Tour tabuSearch(List<CityNode> nodes, int iterations, int tabuSize) {
+    /**
+     * Tabu Search to find the best tour for the given city nodes.
+     * @param nodes The city nodes to find the best tour.
+     * @param iterations The number of iterations to run the algorithm for.
+     * @param tabuSize The size of the tabu list/tenure.
+     * @return The best tour as a Tour object.
+     */
+    static Tour tabuSearch(List<Cities> nodes, int iterations, int tabuSize) {
+
         // Initialize tour with a random path
         List<Integer> path = new ArrayList<Integer>();
         for (int i = 0; i < nodes.size(); i++) {
@@ -58,7 +84,7 @@ public class TabuSearch {
                 }
             }
             
-            // Sort candidate list by cost
+            // Sort candidate list by cost in ascending order
             Collections.sort(candidateList, (t1, t2) -> Double.compare(t1.cost, t2.cost));
             
             // Find best candidate not in tabu list
@@ -69,6 +95,8 @@ public class TabuSearch {
                     break;
                 }
             }
+
+            // If best candidate has yet to be assigned
             if (bestCandidate == null) {
                 bestCandidate = candidateList.get(0);
             }
@@ -91,8 +119,13 @@ public class TabuSearch {
         return best;
     }
     
-    // Calculate the cost of a tour
-    static double tourCost(List<CityNode> nodes, List<Integer> path) {
+    /**
+     * Calculates the cost of a tour given a list of Cities objects and a path.
+     * @param nodes a list of Cities objects representing the cities
+     * @param path the path of the tour as a list of city node
+     * @return the cost of the tour
+     */
+    static double tourCost(List<Cities> nodes, List<Integer> path) {
         double cost = 0.0;
         for (int i = 0; i < path.size() - 1; i++) {
             int node1 = path.get(i);
@@ -103,16 +136,26 @@ public class TabuSearch {
         return cost;
     }
 
- // Calculate the Euclidean distance between two cities
-    static double distance(CityNode node1, CityNode node2) {
+    /**
+     * Calculates the Euclidean distance between two Cities objects.
+     * @param node1 the first city node
+     * @param node2 the second city node
+     * @return the Euclidean distance between the two city nodes
+     */
+    static double distance(Cities node1, Cities node2) {
         double dx = node1.x - node2.x;
         double dy = node1.y - node2.y;
         return Math.sqrt(dx*dx + dy*dy);
     }
 
-    // Read city nodes from a text file
-    static List<CityNode> readNodesFromFile(String filename) throws Exception {
-        List<CityNode> nodes = new ArrayList<CityNode>();
+    /**
+     * Reads city nodes from a text file and returns them as a list of Cities objects.
+     * @param filename the name of the text file to read from
+     * @return a list of Cities objects representing the cities
+     * @throws Exception if there is an error reading the file
+     */
+    static List<Cities> readNodesFromFile(String filename) throws Exception {
+        List<Cities> nodes = new ArrayList<Cities>();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
         while ((line = reader.readLine()) != null && !line.equals("EOF")) {
@@ -120,24 +163,71 @@ public class TabuSearch {
             int id = Integer.parseInt(fields[0]);
             double x = Double.parseDouble(fields[1]);
             double y = Double.parseDouble(fields[2]);
-            nodes.add(new CityNode(id, x, y));
+            nodes.add(new Cities(id, x, y));
         }
         reader.close();
         return nodes;
     }
+    
+    /**
+     * Creates an output file called output.txt which contains all items in TSP_107 but in order of traversal.
+     * @param nodes a list of Cities objects representing the cities
+     * @param path the path of the tour as a list of city node
+     * @param filename source file to copy data from
+     * @throws Exception if there is an error reading the file
+     */
+    static void outputFile(List<Cities> nodes, List<Integer> path, String filename) throws Exception {
+        
+	    Object[] order = path.toArray();
+	    String[] lines = Files.readAllLines(Paths.get(filename)).toArray(new String[0]);
+	    StringBuilder sb = new StringBuilder();
+
+        // Reorder the items copied from TSP_107.txt in the order of traversal of path.
+	    for (int i = 0; i < order.length; i++) {
+	        sb.append(lines[(int) order[i]]);
+	        sb.append("\n");
+	    }
+
+        // Write into output.txt
+	    Files.write(Paths.get("output.txt"), sb.toString().getBytes());
+    }
+
 
     public static void main(String[] args) throws Exception {
-        // Read city nodes from file
-        List<CityNode> nodes = readNodesFromFile("TSP_107.txt");
-        
-        // Run tabu search algorithm
+ 
+        // Set number of iterations and size of tabu list
         int iterations = 75000;
         int tabuSize = 100;
+
+        // Get start time
+        long startTime = System.currentTimeMillis();
+
+        // Read city nodes from file
+        List<Cities> nodes = readNodesFromFile("TSP_107.txt");
+    
+        // Run tabu search
         Tour best = tabuSearch(nodes, iterations, tabuSize);
         
+        // Get end time
+        long endTime = System.currentTimeMillis();
+        
+        //Calculate the running time
+        long runningTime = endTime - startTime;  
+
         // Print results
+        System.out.println("Running time: " + runningTime + " milliseconds");
         System.out.println("Best tour cost: " + best.cost);
-        System.out.println("Best tour path: " + Arrays.toString(best.path.toArray()));
+        int[] bestPath = best.path.stream().mapToInt(i -> i + 1).toArray(); // change from city node start at 0 to start at 1
+        System.out.println("Best tour path: " + Arrays.toString(bestPath));
+
+        // Save city nodes and coordinates in order of path in output.txt
+        outputFile(nodes, best.path, "TSP_107.txt");
+        
+        // Append total cost of tour to last line of output.txt
+        FileWriter fr = new FileWriter("output.txt", true);
+        fr.write("Best:" + best.cost);
+        fr.close();
+
     }
 }
 
