@@ -16,4 +16,4 @@ Members: Chin Yi Hong, Theresa Lim Jiyi, Khor Sher Liang.
 1. For ACO, run the code and the graph will be produced automatically.
 2. For SA or TS, run the code to generate an output.txt file.
 3. Open your python IDE and run graphing.py. The graph will be generated from there.
-4. Uncomment line 16 to remove the axis of the graph.
+3.1. Uncomment line 16 to remove the axis of the graph.
