@@ -27,7 +27,7 @@ Members: Chin Yi Hong, Theresa Lim Jiyi, Khor Sher Liang.
 ### How to generate graph
 1. For ACO, run the code and the graph will be produced automatically.
 2. For SA or TS, run the code to generate an output.txt file.
-3. Open your python IDE, open graphing.py and install matplotlib
+3. Open your python IDE, navigate to your java project folder where graphing.py is and install matplotlib
 ```
 pip install matplotlib
 ```
