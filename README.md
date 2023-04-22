@@ -6,7 +6,7 @@ Members: Chin Yi Hong, Theresa Lim Jiyi, Khor Sher Liang.
 1. Any JAVA IDE. This program was developed using Eclipse and IntelliJ.
 2. Any Python IDE for the graph.
 
-### How to run
+### How to run in IntelliJ
 1. Download this project and unzip the folder.
 2. Create a Java project.
 3. Delete the generated src folder.    
@@ -15,7 +15,7 @@ Members: Chin Yi Hong, Theresa Lim Jiyi, Khor Sher Liang.
 *Note that the structure of files must remain the same to ensure it runs.   
 6. For your ease of running, 2 TSP_107.txt have been included into proper folder.
 
-### Or alternatively,
+### How to run in Eclipse
 1. Download this project and unzip the folder.
 2. Create a Java project. 
 3. Open the src folder downloaded from git.     
