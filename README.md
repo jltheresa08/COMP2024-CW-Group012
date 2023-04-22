@@ -1,5 +1,5 @@
 # COMP2024-CW-Group012
-This is Group 12's implementation of 3 AI algorithms to solve the Travelling Salesman Problem (TSP) for the module COMP2024.   
+This is Group 12's implementation of 3 AI algorithms to solve the Travelling Salesman Problem (TSP).   
 Members: Chin Yi Hong, Theresa Lim Jiyi, Khor Sher Liang.
 ## Getting Started
 ### Prerequisite
