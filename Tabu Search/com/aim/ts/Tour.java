@@ -3,6 +3,9 @@ import java.util.List;
 
 /**
  * This class holds tour path and cost.
+ * 
+ * @author Theresa Lim
+ *
  */
 public class Tour {
 

@@ -1,7 +1,11 @@
 package com.aim.ts;
+
 /**
-* This class holds city node and coordinates associated with each node.
-*/
+ * This class holds city node and coordinates associated with each node.
+ * 
+ * @author Theresa Lim
+ *
+ */
 public class Cities {
 
 	int node;
