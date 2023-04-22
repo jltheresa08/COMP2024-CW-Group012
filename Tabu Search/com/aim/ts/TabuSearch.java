@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TabuSearch {
 
-	/**
+    /**
      * Tabu Search to find the best tour for the given city nodes.
      * @param nodes The city nodes to find the best tour.
      * @param iterations The number of iterations to generate candidate solutions.
@@ -25,7 +25,7 @@ public class TabuSearch {
         // Get number of cities. TSP_107 has 107 cities.
         int numCities = nodes.size();
 
-        // Initialize tour with a random path
+        // Initialize tour with a random path using shuffle random permutation.
         List<Integer> path = new ArrayList<Integer>();
         for (int i = 0; i < numCities; i++) {
             path.add(i);
@@ -34,13 +34,13 @@ public class TabuSearch {
         double cost = tourCost(nodes, path);
         Tour best = new Tour(path, cost);
         
-        // Initialize tabu list and candidate list
+        // Initialize tabu list and candidate list.
         List<Integer> tabuList = new ArrayList<Integer>();
         List<Tour> candidateList = new ArrayList<Tour>();
         
-        // Run tabu search iterations
+        // Run tabu search iterations.
         for (int i = 0; i < iterations; i++) {
-            // Generate candidate solutions
+            // Generate candidate solutions by swapping cities.
             for (int j = 0; j < numCities; j++) {
                 for (int k = j + 1; k < numCities; k++) {
                     List<Integer> candidatePath = new ArrayList<Integer>(best.path);
@@ -51,10 +51,10 @@ public class TabuSearch {
                 }
             }
             
-            // Sort candidate list by cost in ascending order
+            // Sort candidate list by cost in ascending order.
             Collections.sort(candidateList, (t1, t2) -> Double.compare(t1.cost, t2.cost));
             
-            // Find best candidate not in tabu list
+            // Find best candidate not in tabu list.
             Tour bestCandidate = null;
             for (Tour candidate : candidateList) {
                 if (!tabuList.contains(candidate.path.get(0))) {
@@ -63,23 +63,23 @@ public class TabuSearch {
                 }
             }
 
-            // If best candidate has yet to be assigned
+            // If best candidate has yet to be assigned.
             if (bestCandidate == null) {
                 bestCandidate = candidateList.get(0);
             }
             
-            // Update best solution
+            // Update best solution.
             if (bestCandidate.cost < best.cost) {
                 best = bestCandidate;
             }
             
-            // Update tabu list
+            // Update tabu list.
             tabuList.add(best.path.get(0));
             if (tabuList.size() > tabuSize) {
                 tabuList.remove(0);
             }
             
-            // Clear candidate list
+            // Clear candidate list.
             candidateList.clear();
         }
         
@@ -155,41 +155,42 @@ public class TabuSearch {
 	        sb.append("\n");
 	    }
 
-        // Write into output.txt
+        // Write into output.txt.
 	    Files.write(Paths.get("output.txt"), sb.toString().getBytes());
     }
 
 
     public static void main(String[] args) throws Exception {
  
-        // Set number of iterations and size of tabu list
+        // Set number of iterations and size of tabu list.
         int iterations = 7500;
         int tabuSize = 100;
 
-        // Get start time
+        // Get start time.
         long start = System.currentTimeMillis();
 
-        // Read cities and its coordinates from file
+        // Read cities and its coordinates from file.
         List<Cities> nodes = readNodesFromFile("TSP_107.txt");
     
-        // Run tabu search
+        // Run tabu search.
         Tour best = tabuSearch(nodes, iterations, tabuSize);
         
-        // Get end time
+        // Get end time.
         long end = System.currentTimeMillis();
         
-        //Calculate the running time
+        //Calculate the running time.
         long runningTime = end - start;
-        // Print results
+	    
+        // Print results.
         System.out.println("Running time: " + runningTime + " milliseconds");
         System.out.println("Best tour cost: " + best.cost);
         int[] bestPath = best.path.stream().mapToInt(i -> i + 1).toArray(); // change from city node start at 0 to start at 1
         System.out.println("Best tour path: " + Arrays.toString(bestPath));
 
-        // Save city nodes and coordinates in order of path in output.txt
+        // Save city nodes and coordinates in order of path in output.txt.
         outputFile(nodes, best.path, "TSP_107.txt");
         
-        // Append total cost of tour to last line of output.txt
+        // Append total cost of tour to last line of output.txt.
         FileWriter fr = new FileWriter("output.txt", true);
         fr.write("Best:" + best.cost);
         fr.close();
