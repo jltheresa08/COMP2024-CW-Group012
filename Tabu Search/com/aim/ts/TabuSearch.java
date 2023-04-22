@@ -47,7 +47,7 @@ public class TabuSearch {
         
         // Run tabu search iterations
         for (int i = 0; i < iterations; i++) {
-            // Generate candidate solutions
+            // Generate candidate solutions and save all possible solution into list of candidate solutions.
             for (int j = 0; j < numCities; j++) {
                 for (int k = j + 1; k < numCities; k++) {
                     List<Integer> candidatePath = new ArrayList<Integer>(best.path);
@@ -61,7 +61,7 @@ public class TabuSearch {
             // Sort candidate list by cost in ascending order
             Collections.sort(candidateList, (t1, t2) -> Double.compare(t1.cost, t2.cost));
             
-            // If no candidate outside tabu list. Assign the lowest cost candidate to best candidate.
+            // Find best candidate not in tabu list
             Tour bestCandidate = null;
             for (Tour candidate : candidateList) {
                 if (!tabuList.contains(candidate.path.get(0))) {
@@ -70,7 +70,7 @@ public class TabuSearch {
                 }
             }
 
-            // If best candidate has yet to be assigned
+            // If no candidate outside tabu list. Assign the lowest cost candidate to best candidate.
             if (bestCandidate == null) {
                 bestCandidate = candidateList.get(0);
             }
@@ -170,7 +170,7 @@ public class TabuSearch {
     public static void main(String[] args) throws Exception {
  
         // Set number of iterations and size of tabu list
-        int iterations = 7500;
+        int iterations = 7000;
         int tabuSize = 100;
 
         // Get start time
