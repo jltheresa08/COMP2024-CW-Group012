@@ -61,7 +61,7 @@ public class TabuSearch {
             // Sort candidate list by cost in ascending order
             Collections.sort(candidateList, (t1, t2) -> Double.compare(t1.cost, t2.cost));
             
-            // Find best candidate not in tabu list
+            // If no candidate outside tabu list. Assign the lowest cost candidate to best candidate.
             Tour bestCandidate = null;
             for (Tour candidate : candidateList) {
                 if (!tabuList.contains(candidate.path.get(0))) {
